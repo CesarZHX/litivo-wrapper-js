@@ -20,6 +20,9 @@ This project is intended for **personal use and learning purposes**.
 - **Node.js**
 - **TypeScript**
 - **TSX** (for running TypeScript directly)
+- **playwright** (browser automation library)
+- **@playwright/test** (testing framework for E2E tests)
+- **Vitest** (for unit testing)
 
 ---
 
@@ -45,6 +48,48 @@ Install dependencies:
 pnpm install
 ```
 
+Install Playwright browsers (required for E2E tests):
+
+```bash
+pnpm exec playwright install
+```
+
+---
+
+## 🧪 Testing
+
+This project includes both **unit tests** (Vitest) and **E2E tests** (Playwright).
+
+### Run E2E tests (Playwright)
+
+```bash
+pnpm exec playwright test
+```
+
+Or use the UI mode for interactive testing:
+
+```bash
+pnpm exec playwright test --ui
+```
+
+### Run unit tests (Vitest)
+
+```bash
+pnpm exec vitest
+```
+
+Or run tests once without watch mode:
+
+```bash
+pnpm exec vitest run
+```
+
+### Run all tests
+
+```bash
+pnpm test
+```
+
 ---
 
 ## ▶️ Running the project
@@ -54,6 +99,8 @@ This project uses **tsx** to execute TypeScript directly without a build step.
 ```bash
 tsx src/litivo
 ```
+
+---
 
 ## 🤝 Collaboration
 

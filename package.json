@@ -1,11 +1,15 @@
 {
   "name": "litivo-wrapper-js",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "main": "tsx src/litivo"
+    "main": "tsx src/litivo",
+    "test": "vitest run && playwright test",
+    "test:unit": "vitest",
+    "test:e2e": "playwright test",
+    "test:ui": "playwright test --ui"
   },
   "keywords": [],
   "author": "CesarZHX <112836949+CesarZHX@users.noreply.github.com> (https://github.com/CesarZHX/)",
