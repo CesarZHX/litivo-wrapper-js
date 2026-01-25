@@ -1,5 +1,7 @@
 # Project specific ignores:
 
+# Playwright HTML report
+playwright-report/
 
 # Playwright test results
 test-results/ 

@@ -56,6 +56,13 @@ pnpm exec playwright install
 
 ---
 
+## Playwright Setup in VSCode
+
+For instructions on setting up and running Playwright tests in VSCode,
+please refer to the official guide: [Getting Started with Playwright in VSCode](https://playwright.dev/docs/getting-started-vscode)
+
+---
+
 ## 🧪 Testing
 
 This project includes both **unit tests** (Vitest) and **E2E tests** (Playwright).
@@ -99,6 +106,12 @@ This project uses **tsx** to execute TypeScript directly without a build step.
 ```bash
 tsx src/litivo
 ```
+
+---
+
+## TODO
+
+- [ ] CI/CD (to be implemented in the future)
 
 ---
 

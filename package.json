@@ -1,6 +1,6 @@
 {
   "name": "litivo-wrapper-js",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "type": "module",
   "description": "Litivo Wrapper.",
   "main": "./dist/litivo/index.js",
@@ -39,6 +39,7 @@
   "devDependencies": {
     "@playwright/test": "^1.58.0",
     "@types/node": "^25.0.10",
+    "dotenv": "^17.2.3",
     "env-var": "^7.5.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
