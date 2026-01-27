@@ -1,11 +1,11 @@
-/**
- * Example math utility functions.
- */
+/** Example math utility functions. */
 
-export function sum(a: number, b: number): number {
+function sum(a: number, b: number): number {
   return a + b;
 }
 
-export function isEven(n: number): boolean {
+function isEven(n: number): boolean {
   return n % 2 === 0;
 }
+
+export { isEven, sum };

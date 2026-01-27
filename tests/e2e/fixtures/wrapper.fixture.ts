@@ -1,8 +1,8 @@
-import { test as base } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 import { Litivo } from '../../../src/litivo/wrapper.js';
 import { UserCredentials } from '../config/testEnv.js';
 
-export const test = base.extend<{ litivo: Litivo }>({
+const test = base.extend<{ litivo: Litivo }>({
   litivo: async ({ context }, use) => {
     const litivo = new Litivo(context);
     await litivo.login(UserCredentials.email, UserCredentials.password);
@@ -11,4 +11,4 @@ export const test = base.extend<{ litivo: Litivo }>({
   },
 });
 
-export { expect } from '@playwright/test';
+export { expect, test };
