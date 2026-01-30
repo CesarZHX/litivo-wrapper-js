@@ -1,1 +1,1 @@
-export const WRAPPER_URL: URL = new URL('https://www.litivo.com');
+export const wrapperUrl: URL = new URL('https://www.litivo.com');

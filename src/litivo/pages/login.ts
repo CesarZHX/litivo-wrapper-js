@@ -1,10 +1,10 @@
 import type { Locator, Page } from 'playwright';
-import { WRAPPER_URL } from '../constants.js';
+import { wrapperUrl } from '../constants.js';
 import { FootedPage } from './bases/footed.js';
 
 /** Page object for the Litivo login page. */
 export class LoginPage extends FootedPage {
-  protected readonly url: URL = new URL('/auth/login', WRAPPER_URL);
+  protected readonly url: URL = new URL('/auth/login', wrapperUrl);
 
   private readonly emailInput!: Locator;
   private readonly passwordInput!: Locator;
