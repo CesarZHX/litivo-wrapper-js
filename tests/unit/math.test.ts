@@ -1,5 +1,5 @@
-import { isEven, sum } from '../../src/litivo/math.js';
 import { describe, expect, it } from 'vitest';
+import { isEven, sum } from '../../src/math.js';
 
 /**
  * Example Unit tests.

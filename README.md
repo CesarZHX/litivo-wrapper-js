@@ -35,83 +35,17 @@ This project is intended for **personal use and learning purposes**.
 
 ## 🚀 Installation
 
-Clone the repository:
+### Library
 
 ```bash
-git clone https://github.com/CesarZHX/litivo-wrapper-js.git
-cd litivo-wrapper-js
+npm install https://github.com/CesarZHX/litivo-wrapper-js
 ```
 
-Install dependencies:
+### Dependency:
 
 ```bash
-pnpm install
+npx playwright install
 ```
-
-Install Playwright browsers (required for E2E tests):
-
-```bash
-pnpm exec playwright install
-```
-
----
-
-## Playwright Setup in VSCode
-
-For instructions on setting up and running Playwright tests in VSCode,
-please refer to the official guide: [Getting Started with Playwright in VSCode](https://playwright.dev/docs/getting-started-vscode)
-
----
-
-## 🧪 Testing
-
-This project includes both **unit tests** (Vitest) and **E2E tests** (Playwright).
-
-### Run E2E tests (Playwright)
-
-```bash
-pnpm exec playwright test
-```
-
-Or use the UI mode for interactive testing:
-
-```bash
-pnpm exec playwright test --ui
-```
-
-### Run unit tests (Vitest)
-
-```bash
-pnpm exec vitest
-```
-
-Or run tests once without watch mode:
-
-```bash
-pnpm exec vitest run
-```
-
-### Run all tests
-
-```bash
-pnpm test
-```
-
----
-
-## ▶️ Running the project
-
-This project uses **tsx** to execute TypeScript directly without a build step.
-
-```bash
-tsx src/litivo
-```
-
----
-
-## TODO
-
-- [ ] CI/CD (to be implemented in the future)
 
 ---
 

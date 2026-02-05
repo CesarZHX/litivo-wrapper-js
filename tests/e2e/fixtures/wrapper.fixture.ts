@@ -1,5 +1,5 @@
 import { test as base, expect } from '@playwright/test';
-import Litivo from '../../../src/litivo/wrapper.js';
+import Litivo from '../../../src/wrapper.js';
 import { UserCredentials } from '../config/testEnv.js';
 
 const test = base.extend<{ litivo: Litivo }>({

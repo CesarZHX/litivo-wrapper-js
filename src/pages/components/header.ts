@@ -12,9 +12,10 @@ class Header {
   /** Logs out of the application */
   public async logout(): Promise<void> {
     const page: Page = this.page;
+    const pageUrl: string = page.url();
     await this.appPerfil.click();
     await this.logoutButton.click();
-    await page.waitForURL((newUrl) => newUrl.href !== page.url()); // TODO: Consider refactoring into an interface method.
+    await page.waitForURL((newUrl) => newUrl.href !== pageUrl); // TODO: Consider refactoring into an interface method.
   }
 }
 

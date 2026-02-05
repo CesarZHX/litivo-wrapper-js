@@ -1,14 +1,14 @@
 {
-  "name": "litivo-wrapper-js",
-  "version": "0.3.1",
+  "name": "litivo-wrapper",
+  "version": "0.3.2",
   "type": "module",
   "description": "Litivo Wrapper.",
-  "main": "./dist/litivo/index.js",
-  "types": "./dist/litivo/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/litivo/index.d.ts",
-      "import": "./dist/litivo/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
   "files": [
@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "example": "tsx example",
+    "example": "tsc && tsx example",
     "test": "vitest run && playwright test",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
