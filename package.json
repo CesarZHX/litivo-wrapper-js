@@ -1,6 +1,6 @@
 {
   "name": "litivo-wrapper",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "type": "module",
   "description": "Litivo Wrapper.",
   "main": "./dist/index.js",
@@ -12,7 +12,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "build": "tsc",
