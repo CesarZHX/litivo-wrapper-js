@@ -6,7 +6,7 @@ import FootedPage from '../bases/footed.js';
 import ApplicationSubmissionSection from '../sections/application-submission.js';
 import AssetsSection from '../sections/assets/assets.js';
 import AttachedDocumentsSection from '../sections/attached-documents.js';
-import AvailableResourcesSection from '../sections/available-resources.js';
+import AvailableResourcesSection from '../sections/available-resources/available-resources.js';
 import CausesSection from '../sections/causes.js';
 import ChildSupportObligationsSection from '../sections/child-support-obligations.js';
 import CreditorSection from '../sections/creditor.js';
@@ -72,17 +72,14 @@ class CreateInsolvencyPage extends FootedPage {
     }
 
     if (await page.locator('h2', { hasText: 'RECURSOS DISPONIBLES' }).isVisible()) {
-      // TODO: Do it later, it is optional.
       await this.availableResourcesSection.send(insolvency.availableResources);
     }
 
     if (await page.locator('h2', { hasText: 'NEGOCIACIÓN DE DEUDAS' }).isVisible()) {
-      // TODO: Complete
-      await this.debtNegotiationSection.send(insolvency.debtNegotiation);
+      await this.debtNegotiationSection.send(insolvency.debtNegotiations);
     }
 
     if (await page.locator('h2', { hasText: 'DOCUMENTOS ANEXOS' }).isVisible()) {
-      // TODO: Do it later, it is optional.
       await this.attachedDocumentsSection.send(insolvency.attachedDocuments);
     }
 

@@ -5,7 +5,7 @@ import { AvailableResourcesSchema } from './available-resources.js';
 import CausesSchema from './causes.js';
 import { childSupportObligationsSchema } from './child-support-obligation.js';
 import { CreditorsSchema } from './creditor.js';
-import DebtNegotiationSchema from './debt-negotiation.js';
+import { DebtNegotiationsSchema } from './debt-negotiation.js';
 import DebtorSchema from './debtor.js';
 import { JaoppSchema } from './jaopp.js';
 import SiteSchema from './site.js';
@@ -23,7 +23,7 @@ const InsolvencySchema = z.object({
   jaopp: JaoppSchema.optional(),
   childSupportObligations: childSupportObligationsSchema.optional(),
   availableResources: AvailableResourcesSchema.optional(),
-  debtNegotiation: DebtNegotiationSchema,
+  debtNegotiations: DebtNegotiationsSchema,
   attachedDocuments: AttachedDocumentsSchema.optional(),
   applicationSubmission: z.unknown(),
 });

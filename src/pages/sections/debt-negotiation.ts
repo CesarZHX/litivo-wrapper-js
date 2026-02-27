@@ -1,9 +1,10 @@
 import type { Locator, Page } from 'playwright';
-import type { DebtNegotiationType } from '../../models/debt-negotiation.js';
+import { getDateInputSelector, getInputSelector } from '../../helpers.js';
+import type { DebtNegotiationsType, DebtNegotiationType } from '../../models/debt-negotiation.js';
 import BaseSection from '../bases/section.js';
 
 /** TODO: Debt Negotiation (feat: extend create insolvency method with debt negotiation section) */
-class DebtNegotiationSection extends BaseSection<[DebtNegotiationType]> {
+class DebtNegotiationSection extends BaseSection<[DebtNegotiationType[]]> {
   private readonly submitButton: Locator;
 
   constructor(page: Page) {
@@ -13,27 +14,28 @@ class DebtNegotiationSection extends BaseSection<[DebtNegotiationType]> {
     });
   }
 
-  public async send(debtNegotiation: DebtNegotiationType): Promise<void> {
+  public async send(debtNegotiations: DebtNegotiationsType | undefined = []): Promise<void> {
     const page = this.page;
 
-    // TODO: Complete form
-
-    const installments = debtNegotiation.installments;
+    const installmentsTable = page.locator('nz-table');
+    const creditTypeInput: Locator = page.locator(getInputSelector('tipo_credito'));
+    const startDateInput = page.locator(getDateInputSelector('fecha'));
     const installmentsInput = page.locator('nz-input-number[formcontrolname="cuotas"] input');
-    await installmentsInput.fill(installments.toString());
-
-    // TODO: Complete form
-
     const recalculateProjectionButton = page.locator(
       'button:has-text("Guardar datos y calcular proyección"), button:has-text("Recalcular proyección")',
     );
-    await recalculateProjectionButton.click();
+    const confirmButton = page.locator('button', { hasText: 'Confirmar' });
 
-    // TODO: Complete form
+    for (const debtNegotiation of debtNegotiations || []) {
+      await this.fillInput(creditTypeInput, debtNegotiation.creditType);
+      await installmentsTable.waitFor({state:"detached"});
+      await this.fillDateInput(startDateInput, debtNegotiation.startDate);
+      await installmentsInput.fill(debtNegotiation.installments.toString());
+      await recalculateProjectionButton.click();
+      await page.waitForTimeout(1000) // TODO: Find a better way to wait for the page to load
+    }
 
     await this.submitButton.click();
-
-    const confirmButton = page.locator('button', { hasText: 'Confirmar' });
     await confirmButton.click();
 
     await page.locator('h2', { hasText: 'DOCUMENTOS ANEXOS' }).waitFor();

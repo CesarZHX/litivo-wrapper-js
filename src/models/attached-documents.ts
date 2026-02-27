@@ -6,8 +6,9 @@ const AttachedDocumentSchema = z.object({
 });
 
 const AttachedDocumentsSchema = z.array(AttachedDocumentSchema);
+type AttachedDocumentsType = z.infer<typeof AttachedDocumentsSchema>;
 type AttachedDocumentType = z.infer<typeof AttachedDocumentSchema>;
 
 export { AttachedDocumentsSchema };
-export type { AttachedDocumentType };
+export type { AttachedDocumentsType, AttachedDocumentType };
 

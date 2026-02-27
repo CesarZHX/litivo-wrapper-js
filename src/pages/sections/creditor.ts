@@ -524,7 +524,8 @@ class CreditorSection extends BaseSection<[CreditorsType]> {
         }
 
         const creditNatureInput: Locator = page.locator(getInputSelector('naturalezaCredito'));
-        await this.selectOption(creditNatureInput, credit.creditNature);
+        await this.fillInput(creditNatureInput, credit.creditNature);
+        
 
         // TODO: Condición de crédito legalmente postergado (Artículo 572A, Causal 1).
 

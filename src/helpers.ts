@@ -8,6 +8,9 @@ function getInputSelector(id: string): string {
 function getDateInputSelector(id: string): string {
   return `nz-date-picker[formcontrolname="${id}"]`;
 }
+function titleCase(text: string): string {
+  return text.toLowerCase().replace(/(^|\s)\w/g, (match) => match.toUpperCase());
+}
 
 
 async function checkCheckBox(page: Page, formControlName: string): Promise<void> {
@@ -46,5 +49,5 @@ async function fillJudicialNotificationAddress(page: Page, address: JudicialNoti
 
 }
 
-export { checkCheckBox, fillJudicialNotificationAddress, getDateInputSelector, getInputSelector };
+export { checkCheckBox, fillJudicialNotificationAddress, getDateInputSelector, getInputSelector, titleCase };
 
