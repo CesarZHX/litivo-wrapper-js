@@ -1,6 +1,6 @@
 {
     "name": "litivo-wrapper",
-    "version": "0.3.21",
+    "version": "0.3.22",
     "type": "module",
     "description": "Litivo Wrapper.",
     "main": "./dist/index.js",
@@ -32,6 +32,9 @@
         "wrapper"
     ],
     "author": "CesarZHX <112836949+CesarZHX@users.noreply.github.com> (https://github.com/CesarZHX/)",
+    "contributors": [
+        "Alfa-R2 <132297368+Alfa-R2@users.noreply.github.com> (https://github.com/Alfa-R2/)"
+    ],
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
