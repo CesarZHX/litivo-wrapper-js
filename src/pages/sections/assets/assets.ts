@@ -71,29 +71,37 @@ class AssetsSection extends BaseSection<[AssetsType]> {
   public async send(assets: AssetsType | undefined = []): Promise<void> {
     const page = this.page;
 
-    for (const asset of assets || []) {
-      const isAssetMueble = isAssetMuebleType(asset);
-      const descriptionInput = page.locator("textarea[formcontrolname='descripcion']");
-      const estimatedValueInput = page.locator("input[formcontrolname='avaluoComercialEstimado']");
-      const saveButton = page.locator('button.btn-guardar:not([disabled])', {
-        hasText: isAssetMueble ? 'GUARDAR' : /^ AGREGAR $/,
-      });
+    try {
+      for (const asset of assets || []) {
+        const isAssetMueble = isAssetMuebleType(asset);
+        const descriptionInput = page.locator("textarea[formcontrolname='descripcion']");
+        const estimatedValueInput = page.locator("input[formcontrolname='avaluoComercialEstimado']");
+        const saveButton = page.locator('button.btn-guardar:not([disabled])', {
+          hasText: isAssetMueble ? 'GUARDAR' : /^ AGREGAR $/,
+        });
 
-      if (isAssetMueble) {
-        await this.addAssetMueble(asset);
-      } else {
-        await this.addAssetInmueble(asset);
+        if (isAssetMueble) {
+          await this.addAssetMueble(asset);
+        } else {
+          await this.addAssetInmueble(asset);
+        }
+
+        await descriptionInput.fill(asset.description);
+        await estimatedValueInput.fill(asset.estimatedValue.toString());
+        await saveButton.click();
       }
 
-      await descriptionInput.fill(asset.description);
-      await estimatedValueInput.fill(asset.estimatedValue.toString());
-      await saveButton.click();
+      await this.submitButton.click();
+      await page
+        .locator('h2', { hasText: 'PROCESOS JUDICIALES, ADMINISTRATIVOS O PRIVADOS' })
+        .waitFor();
+    } catch (e) {
+      await this.deleteDraft().catch((deleteError) => {
+        console.error('Error deleting draft:', deleteError);
+      });
+      console.error('Error in AssetsSection.send:', e);
+      throw e;
     }
-
-    await this.submitButton.click();
-    await page
-      .locator('h2', { hasText: 'PROCESOS JUDICIALES, ADMINISTRATIVOS O PRIVADOS' })
-      .waitFor();
   }
 }
 

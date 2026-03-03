@@ -17,28 +17,37 @@ class DebtNegotiationSection extends BaseSection<[DebtNegotiationType[]]> {
   public async send(debtNegotiations: DebtNegotiationsType | undefined = []): Promise<void> {
     const page = this.page;
 
-    const installmentsTable = page.locator('nz-table');
-    const creditTypeInput: Locator = page.locator(getInputSelector('tipo_credito'));
-    const startDateInput = page.locator(getDateInputSelector('fecha'));
-    const installmentsInput = page.locator('nz-input-number[formcontrolname="cuotas"] input');
-    const recalculateProjectionButton = page.locator(
-      'button:has-text("Guardar datos y calcular proyección"), button:has-text("Recalcular proyección")',
-    );
-    const confirmButton = page.locator('button', { hasText: 'Confirmar' });
+    try {
+      const installmentsTable = page.locator('nz-table');
+      const creditTypeInput: Locator = page.locator(getInputSelector('tipo_credito'));
+      const startDateInput = page.locator(getDateInputSelector('fecha'));
+      const installmentsInput = page.locator('nz-input-number[formcontrolname="cuotas"] input');
+      const recalculateProjectionButton = page.locator(
+        'button:has-text("Guardar datos y calcular proyección"), button:has-text("Recalcular proyección")',
+      );
+      const confirmButton = page.locator('button', { hasText: 'Confirmar' });
 
-    for (const debtNegotiation of debtNegotiations || []) {
-      await this.fillInput(creditTypeInput, debtNegotiation.creditType);
-      await installmentsTable.waitFor({state:"detached"});
-      await this.fillDateInput(startDateInput, debtNegotiation.startDate);
-      await installmentsInput.fill(debtNegotiation.installments.toString());
-      await recalculateProjectionButton.click();
-      await page.waitForTimeout(1000) // TODO: Find a better way to wait for the page to load
+      for (const debtNegotiation of debtNegotiations || []) {
+        await this.fillInput(creditTypeInput, debtNegotiation.creditType);
+        await installmentsTable.waitFor({ state: "detached" });
+        await this.fillDateInput(startDateInput, debtNegotiation.startDate);
+        await installmentsInput.fill(debtNegotiation.installments.toString());
+        await recalculateProjectionButton.click();
+        await page.waitForTimeout(1000) // TODO: Find a better way to wait for the page to load
+      }
+
+      await this.submitButton.click();
+      await confirmButton.click();
+
+      await page.locator('h2', { hasText: 'DOCUMENTOS ANEXOS' }).waitFor();
+    } catch (e) {
+      await this.deleteDraft().catch((deleteError) => {
+        console.error('Failed to delete draft after error in send:', deleteError);
+      });
+
+      console.error('Error in DebtNegotiationSection.send:', e);
+      throw e;
     }
-
-    await this.submitButton.click();
-    await confirmButton.click();
-
-    await page.locator('h2', { hasText: 'DOCUMENTOS ANEXOS' }).waitFor();
   }
 }
 

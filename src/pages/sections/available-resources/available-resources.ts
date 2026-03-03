@@ -37,21 +37,30 @@ class AvailableResourcesSection extends BaseSection<[AvailableResourcesType]> {
   public async send(availableResources: AvailableResourcesType | undefined = []): Promise<void> {
     const page = this.page;
 
-    const availableBaseResources = availableResources.filter(
-      resource=> !isAvailableResourceDefined(resource)
-    );
-    const availableDefinedResources = availableResources.filter(
-      resource=> isAvailableResourceDefined(resource) 
-    );
+    try {
+      const availableBaseResources = availableResources.filter(
+        resource => !isAvailableResourceDefined(resource)
+      );
+      const availableDefinedResources = availableResources.filter(
+        resource => isAvailableResourceDefined(resource)
+      );
 
-    await this.addDefinedAvailableResources(availableDefinedResources);
-    await this.addAvailableResources(availableBaseResources);
+      await this.addDefinedAvailableResources(availableDefinedResources);
+      await this.addAvailableResources(availableBaseResources);
 
-    const saveButton = page.locator('button', { hasText: 'Guardar' });
-    await saveButton.click();
+      const saveButton = page.locator('button', { hasText: 'Guardar' });
+      await saveButton.click();
 
-    await this.submitButton.click();
-    await page.locator('h2', { hasText: 'NEGOCIACIÓN DE DEUDAS' }).waitFor();
+      await this.submitButton.click();
+      await page.locator('h2', { hasText: 'NEGOCIACIÓN DE DEUDAS' }).waitFor();
+    } catch (e) {
+      await this.deleteDraft().catch((deleteError) => {
+        console.error('Failed to delete draft after error in send:', deleteError);
+      });
+
+      console.error('Error in AvailableResourcesSection.send:', e);
+      throw e;
+    }
   }
 }
 

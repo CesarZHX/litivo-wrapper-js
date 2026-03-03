@@ -15,6 +15,7 @@ import DebtorSection from '../sections/debtor.js';
 import JAOPPSection from '../sections/judicial-administrative-or-private-proceedings.js';
 import SiteSection from '../sections/site.js';
 
+
 class CreateInsolvencyPage extends FootedPage {
   protected readonly url: URL = new URL('/insolvencia/crear', wrapperUrl);
 
@@ -82,6 +83,7 @@ class CreateInsolvencyPage extends FootedPage {
     if (await page.locator('h2', { hasText: 'DOCUMENTOS ANEXOS' }).isVisible()) {
       await this.attachedDocumentsSection.send(insolvency.attachedDocuments);
     }
+
 
     try {
       // NOTE: Not automated because it requires a legal representative signature.

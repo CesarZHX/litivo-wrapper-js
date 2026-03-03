@@ -33,10 +33,13 @@ const NaturalPersonSchema = z.object({
 });
 type NaturalPersonType = z.infer<typeof NaturalPersonSchema>;
 
+type NaturalPersonIdDataType = z.infer<typeof NaturalPersonIdDataSchema>;
+
 export {
   BaseNaturalPersonIdDataSchema,
   NaturalPersonIdDataExtrasSchema,
   NaturalPersonIdDataSchema,
-  NaturalPersonSchema,
+  NaturalPersonSchema
 };
-export type { BaseNaturalPersonIdDataType, NaturalPersonIdentificationDataType, NaturalPersonType };
+export type { BaseNaturalPersonIdDataType, NaturalPersonIdDataType, NaturalPersonIdentificationDataType, NaturalPersonType };
+

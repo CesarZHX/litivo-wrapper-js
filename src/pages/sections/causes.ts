@@ -20,27 +20,37 @@ class CausesSection extends BaseSection<[CausesType]> {
   public async send(causes: CausesType): Promise<void> {
     const page: Page = this.page;
 
-    await this.fillInput(this.departmentInput, causes.department);
-    await this.fillInput(this.cityInput, causes.city);
-    for (const cause of causes.causes) {
-      // TODO: Skip cause if it already exists (Now wrapper can continue drafts) .
+    try {
+      await this.fillInput(this.departmentInput, causes.department);
+      await this.fillInput(this.cityInput, causes.city);
+      
+      for (const cause of causes.causes) {
+        // TODO: Skip cause if it already exists (Now wrapper can continue drafts) .
 
-      await this.addCauseButton.click();
+        await this.addCauseButton.click();
 
-      const CauseTypeInput: Locator = page.locator(getInputSelector('claseCausa'));
-      const CauseDescriptionDiv: Locator = page.locator(
-        "div.fr-element.fr-view[aria-disabled='false']",
-      );
-      const SaveCauseButton: Locator = page.locator('button:has-text("GUARDAR")');
+        const CauseTypeInput: Locator = page.locator(getInputSelector('claseCausa'));
+        const CauseDescriptionDiv: Locator = page.locator(
+          "div.fr-element.fr-view[aria-disabled='false']",
+        );
+        const SaveCauseButton: Locator = page.locator('button:has-text("GUARDAR")');
 
-      await this.fillInput(CauseTypeInput, cause.type);
-      await CauseDescriptionDiv.fill(cause.description);
+        await this.fillInput(CauseTypeInput, cause.type);
+        await CauseDescriptionDiv.fill(cause.description);
 
-      await SaveCauseButton.click();
-      await SaveCauseButton.waitFor({ state: 'detached' });
+        await SaveCauseButton.click();
+        await SaveCauseButton.waitFor({ state: 'detached' });
+      }
+      await this.submitButton.click();
+      await page.locator('h2', { hasText: 'ACREEDOR' }).waitFor();
+    } catch (e) {
+      await this.deleteDraft().catch((deleteError) => {
+        console.error('Failed to delete draft after error in send:', deleteError);
+      });
+
+      console.error('Error in CausesSection.send:', e);
+      throw e;
     }
-    await this.submitButton.click();
-    await page.locator('h2', { hasText: 'ACREEDOR' }).waitFor();
   }
 }
 

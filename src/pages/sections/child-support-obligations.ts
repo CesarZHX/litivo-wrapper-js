@@ -98,34 +98,41 @@ class ChildSupportObligationsSection extends BaseSection<[ChildSupportObligation
       hasText: 'AGREGAR OBLIGACIÓN ALIMENTARIA',
     });
 
-    for (const childSupportObligation of childSupportObligations || []) {
-      await addChildSupportObligationButton.click();
+    try {
+      for (const childSupportObligation of childSupportObligations || []) {
+        await addChildSupportObligationButton.click();
 
-      const cuantiaInput = page.locator("input[formcontrolname='cuantiaObligacion']");
-      const paymentFrequencyInput = page.locator(getInputSelector('periodoPago'));
-      const parentalRelationshipInput = page.locator(getInputSelector('relacionDeudor'));
-      const saveButton = page.locator('button', {
-        hasText: 'GUARDAR',
-      });
+        const cuantiaInput = page.locator("input[formcontrolname='cuantiaObligacion']");
+        const paymentFrequencyInput = page.locator(getInputSelector('periodoPago'));
+        const parentalRelationshipInput = page.locator(getInputSelector('relacionDeudor'));
+        const saveButton = page.locator('button', {
+          hasText: 'GUARDAR',
+        });
 
-      await this.addBeneficiary(childSupportObligation.beneficiary);
-      if (childSupportObligation.isSued) {
-        await checkCheckBox(page, 'swObligacion');
+        await this.addBeneficiary(childSupportObligation.beneficiary);
+        if (childSupportObligation.isSued) {
+          await checkCheckBox(page, 'swObligacion');
+        }
+        await cuantiaInput.fill(childSupportObligation.amount.toString());
+        await this.selectOption(paymentFrequencyInput, childSupportObligation.paymentFrequency);
+        await this.uploadFile('ANEXAR CERTIFICADO REDAM', childSupportObligation.redamFilePath);
+        await this.selectOption(
+          parentalRelationshipInput,
+          childSupportObligation.parentalRelationship,
+        );
+
+        await saveButton.click();
       }
-      await cuantiaInput.fill(childSupportObligation.amount.toString());
-      await this.selectOption(paymentFrequencyInput, childSupportObligation.paymentFrequency);
-      await this.uploadFile('ANEXAR CERTIFICADO REDAM', childSupportObligation.redamFilePath);
-      await this.selectOption(
-        parentalRelationshipInput,
-        childSupportObligation.parentalRelationship,
-      );
 
-      await saveButton.click();
+      await this.submitButton.click();
+      await page.locator('h2', { hasText: 'RECURSOS DISPONIBLES' }).waitFor();
+    } catch (e) {
+      await this.deleteDraft().catch((deleteError) => {
+        console.error('Failed to delete draft after error in send:', deleteError);
+      });
+      console.error('Error in ChildSupportObligationsSection.send:', e);
+      throw e;
     }
-
-    await this.submitButton.click();
-    await page.locator('h2', { hasText: 'RECURSOS DISPONIBLES' }).waitFor();
   }
 }
-
 export default ChildSupportObligationsSection;
