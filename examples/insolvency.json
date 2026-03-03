@@ -190,13 +190,45 @@
     }
   ],
   "assets": [
-    "TODO: Optional: An array of assets."
+    "Optional: An array of assets.",
+    {
+      "type": "Literal: 'Otros Muebles'",
+      "clasification": "Classification Asset type (e.g., 'Equipos Electrónicos', 'Joyas', 'Obras de Arte', 'Artículos de Recreación', 'Accesorios','Prendas de Vestir','Semovientes','Muebles y Enseres','Otros')",
+      "description": "Asset description",
+      "marca": "Brand (A nonempty string)",
+      "estimatedValue": "Estimated value in COP"
+    },
+    {
+      "type": "Literal: 'Vehículos'",
+      "description": "Asset description",
+      "marca": "Brand (A nonempty string)",
+      "modelo": "Model (A nonempty string)",
+      "placa": "License plate (A nonempty string)",
+      "estimatedValue": "Estimated value in COP",
+      "ownershipCardName": "Ownership card name (A nonempty string)",
+      "ownershipCardFilePath": "Path to ownership card file"
+    },
+    {
+      "description": "Asset description",
+      "matriculaInmobiliaria": "Matricula inmobiliaria (A nonempty string)",
+      "country": "Country",
+      "judicialNotificationAddress": {
+        "roadType": "Road type ('Calle', 'Carrera', 'Avenida', 'Avenida carrera', 'Avenida calle', 'Circular', 'Circunvalar', 'Diagonal', 'Manzana', 'Transversal', 'Vía')",
+        "roadName": "Road name",
+        "roadNumber": "Road number",
+        "roadSubNumber": "Road sub number ",
+        "roadDetails": "Road details (optional. Examples: 'apto', 'casa', 'referencia)",
+        "roadStratum": "Road stratum (optional: 'ESTRATO 1', 'ESTRATO 2', ..., 'ESTRATO 6', 'NO INFORMA')"
+      },
+      "estimatedValue": "Estimated value in COP",
+      "participationPercentage": "Participation percentage as a number between 0 and 100"
+    }
   ],
   "jaopp": [
     "Optional: An array of JAOPP (Judicial, Administrative or Private Proceedings). Each obligation should include the creditor",
     {
       "jaoppType": "Literal: Judicial",
-      "processType":"Process type: 'Judicial', 'Privado' or 'Administrativo'",
+      "processType": "Process type: 'Judicial', 'Privado' or 'Administrativo'",
       "fullCourtNumberAndCourtType": "Full court number and court type",
       "radicationNumber": "Radication number",
       "department": "Department",
@@ -271,12 +303,76 @@
         "path": "Optional: Path to support file"
       }
     }
-
   ],
-  "childSupportObligations": "TODO: Optional...",
-  "availableResources": "TODO: Optional...",
-  "debtNegotiation": {
-    "installments": "number of installments as an integer (minimum 1)",
-    "startDate": "ISO date string (yyyy-mm-dd)"
-  }
+  "childSupportObligations": [
+    "Optional: An array of child support obligations",
+    {
+      "amount": "Amount in COP",
+      "paymentFrequency": "Payment frequency (e.g., 'DIARIOS', 'SEMANAL', 'QUINCENAL', 'MENSUAL')",
+      "redamFilePath": "Path to REDAM file",
+      "parentalRelationship": "Parental relationship (e.g., 'Cónyuge', 'Padres', 'Hijos', 'Hermanos', 'Otros')",
+      "isSued": "boolean indicating if there is a lawsuit for the child support obligation",
+      "beneficiary": {
+        "idDoc": {
+          "type": "Document type ('CÉDULA DE CIUDADANÍA', 'CÉDULA DE EXTRANJERÍA', 'NÚMERO DE IDENTIFICACIÓN DE EXTRANJERO', 'PASAPORTE', 'REGISTRO CIVIL' or 'TARJETA DE IDENTIDAD')",
+          "value": "Document number",
+          "issueCity": "Optional (and just appears if type is 'CÉDULA DE CIUDADANÍA'): City where document was issued"
+        },
+        "originCountry": "Country of origin",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "gender": "Gender ('MASCULINO', 'FEMENINO' or 'NO APLICA')",
+        "birthDate": "Optional: ISO date (yyyy-mm-dd)",
+        "contactInformation": {
+          "residenceCountry": "Country of residence",
+          "department": "Department",
+          "city": "City",
+          "telephones": [
+            "optional array of telephone numbers up to 3"
+          ],
+          "cellphones": [
+            "optional array of cellphone numbers up to 3"
+          ],
+          "emailsOrReason": "An array of 1-3 emails or a string containing a single reason for no email",
+          "webPages": [
+            "optional array of web pages up to 3"
+          ],
+          "judicialNotificationAddress": {
+            "roadType": "Road type (optional: 'Calle', 'Carrera', 'Avenida', 'Avenida carrera', 'Avenida calle', 'Circular', 'Circunvalar', 'Diagonal', 'Manzana', 'Transversal', 'Vía')",
+            "roadName": "Road name (optional)",
+            "roadNumber": "Road number (optional, but mandatory if roadType, roadName, roadDetail or roadStratum is present.)",
+            "roadSubNumber": "Road sub number (optional, but mandatory if roadType, roadName, roadDetail or roadStratum is present.)",
+            "roadDetails": "Road details (optional. Examples: 'apto', 'casa', 'referencia)",
+            "roadStratum": "Road stratum (optional: 'ESTRATO 1', 'ESTRATO 2', ..., 'ESTRATO 6', 'NO INFORMA')"
+          }
+        }
+      }
+    }
+  ],
+  "availableResources": [
+    "Optional: An array of available resources.",
+    {
+      "name": "Resource name (A nonempty string)",
+      "amount": "Amount in COP"
+    },
+    {
+      "name": "A unique resource name (e.g., 'Cuota De Leasing Habitacional', 'Cuota De Leasing Vehículo', 'Cuota De Leasing Oficina/consultorio', 'Arriendo Vivienda', 'Arriendo Oficina/consultorio', 'Alimentación', 'Colegios', 'Salud', 'Seguros', 'Vestuario', 'Recreación', 'Gastos Para La Subsistencia De Las Personas A Su Cargo', 'Gastos Para La Conservación De Los Bienes')",
+      "amount": "Amount in COP"
+    }
+  ],
+  "debtNegotiation": [
+    "An array of debt negotiations.",
+    {
+      "creditType": "A unique credit type (e.g., 'Primera Clase: Alimentos de Menores', 'Primera Clase: Obligaciones Laborales', 'Primera Clase: Obligaciones con el Fisco', 'Segunda Clase', 'Tercera Clase', 'Cuarta Clase', 'Quinta Clase')",
+      "installments": "number of installments as an integer (minimum 1)",
+      "startDate": "ISO date string (yyyy-mm-dd)"
+    }
+  ],
+  "attachedDocuments": [
+    "Optional: An array of attached documents.",
+    {
+      "name": "Document name (A nonempty string)",
+      "filePath": "Path to document file"
+    }
+  ]
 }

@@ -35,7 +35,7 @@ const AssetMuebleSchema = z.union([AssetVehicularSchema, AssetOtrosMueblesSchema
 
 const AssetInmuebleSchema = z.object({
   description: z.string().trim().min(1),
-  matricula_inmobiliaria: z.string().trim().min(1),
+  matriculaInmobiliaria: z.string().trim().min(1),
   country: CountrySchema,
   judicialNotificationAddress: JudicialNotificationAddressRequiredSchema,
   estimatedValue: z.number().nonnegative(),
@@ -57,12 +57,13 @@ export {
   AssetMuebleSchema,
   AssetOtrosMueblesSchema,
   AssetsSchema,
-  AssetVehicularSchema,
+  AssetVehicularSchema
 };
 export type {
   AssetInmuebleType,
   AssetMuebleType,
   AssetOtrosMueblesType,
   AssetsType,
-  AssetVehicularType,
+  AssetVehicularType
 };
+

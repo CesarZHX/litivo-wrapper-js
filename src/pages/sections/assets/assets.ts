@@ -61,7 +61,7 @@ class AssetsSection extends BaseSection<[AssetsType]> {
     );
     const roadTypeInput = page.locator(getInputSelector('razonSocial'));
 
-    await matriculaInput.fill(asset.matricula_inmobiliaria);
+    await matriculaInput.fill(asset.matriculaInmobiliaria);
     await this.fillInput(countryInput, asset.country);
     await this.fillInput(roadTypeInput, asset.judicialNotificationAddress.roadType);
     await fillJudicialNotificationAddress(page, asset.judicialNotificationAddress);

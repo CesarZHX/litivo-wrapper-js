@@ -1,12 +1,17 @@
 import z from "zod";
-import { ContactInformationSchema } from "./base.js";
+import { BaseJudicialNotificationAddressSchema, ContactInformationSchema } from "./base.js";
 import { IdentificationDocumentBaseSchema } from "./identification-document.js";
 import { NaturalPersonIdDataSchema } from "./natural-person.js";
+import { NonEmptyTrimmedStringSchema } from "./utils/strings.js";
 
 const BeneficiarySchema = NaturalPersonIdDataSchema.extend({
     birthDate: NaturalPersonIdDataSchema.shape.birthDate.optional(),
     idDoc: IdentificationDocumentBaseSchema,
-    contactInformation: ContactInformationSchema
+    contactInformation: ContactInformationSchema.extend({
+        judicialNotificationAddress: BaseJudicialNotificationAddressSchema.extend({
+            roadStratum: NonEmptyTrimmedStringSchema.optional(), // TODO: "ESTRATO 1", "ESTRATO 2", ..., "ESTRATO 6", "NO INFORMA".
+        }).optional(),
+    })
 });
 
 const childSupportObligationSchema = z.object({

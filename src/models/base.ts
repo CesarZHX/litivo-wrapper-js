@@ -66,14 +66,15 @@ type JudicialNotificationAddressRequiredType = z.infer<
 >;
 
 export {
-  ContactInformationSchema,
+  BaseJudicialNotificationAddressSchema, ContactInformationSchema,
   IdenticationDataSchema,
   JaoppAddressSchema,
   JudicialNotificationAddressRequiredSchema,
-  JudicialNotificationAddressSchema,
+  JudicialNotificationAddressSchema
 };
 export type {
   ContactInformationType,
   IdenticationDataType,
-  JudicialNotificationAddressRequiredType,
+  JudicialNotificationAddressRequiredType
 };
+
